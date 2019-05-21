@@ -5,6 +5,8 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use Kjjdion\LaravelAdminPanel\Models\Role;
+use Kjjdion\LaravelAdminPanel\Models\RoleUser;
 
 trait RegistersUsers
 {
@@ -16,8 +18,9 @@ trait RegistersUsers
      * @return \Illuminate\Http\Response
      */
     public function showRegistrationForm()
-    {
-        return view('auth.register');
+    {   
+        $objRoles       = Role::where('name',"<>","Admin")->get();
+        return view('auth.register',compact('objRoles'));
     }
 
     /**
@@ -31,7 +34,14 @@ trait RegistersUsers
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
+        if($user){
+            $objRoleUsers           = new RoleUser();
+            $objRoleUsers->user_id  = $user->id;
+            $objRoleUsers->role_id  = $request->input('role');
+            $objRoleUsers->save();
+            $user->emp_id           = "EMP-".str_pad($user->id, 6, '0', STR_PAD_LEFT);
+            $user->save();
+        }
         $this->guard()->login($user);
 
         return $this->registered($request, $user)

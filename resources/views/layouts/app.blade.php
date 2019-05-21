@@ -4,9 +4,8 @@
 <body>
 @include('layouts.header')
     <div id="app">
-        
-        <br><br><br>&nbps;
-
+        <br><br><br>
+        <p></p>
         <main class="py-4">
             @yield('content')
         </main>

@@ -11,6 +11,11 @@
         <a href="{{ route('admin.users') }}"><i class="fal fa-fw fa-user mr-3"></i>Users</a>
     </li>
 @endcan
+@can('Read Users')
+    <li{!! request()->is('admin/members') ? ' class="active"' : '' !!}>
+        <a href="{{ route('admin.members') }}"><i class="fal fa-fw fa-user mr-3"></i>Members/Card Holders</a>
+    </li>
+@endcan
 @can('Read Activity Logs')
     <li{!! request()->is('admin/activity_logs') ? ' class="active"' : '' !!}>
         <a href="{{ route('admin.activity_logs') }}"><i class="fal fa-fw fa-file-alt mr-3"></i>Activity Logs</a>

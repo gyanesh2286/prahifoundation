@@ -33,6 +33,7 @@ return [
         'doc' => 'Kjjdion\LaravelAdminPanel\Controllers\DocController',
         'role' => 'Kjjdion\LaravelAdminPanel\Controllers\RoleController',
         'user' => 'Kjjdion\LaravelAdminPanel\Controllers\UserController',
+        'member' => 'Kjjdion\LaravelAdminPanel\Controllers\MemberController',
     ],
 
     // models used by package

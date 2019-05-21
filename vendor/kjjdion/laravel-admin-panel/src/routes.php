@@ -41,6 +41,17 @@ Route::group(['middleware' => 'web'], function () {
     Route::patch('admin/users/password/{id}', config('lap.controllers.user') . '@password');
     Route::delete('admin/users/delete/{id}', config('lap.controllers.user') . '@delete')->name('admin.users.delete');
 
+    // user
+    Route::get('admin/members', config('lap.controllers.member') . '@index')->name('admin.members');
+    Route::get('admin/members/create', config('lap.controllers.member') . '@createForm')->name('admin.members.create');
+    Route::post('admin/members/create', config('lap.controllers.member') . '@create');
+    Route::get('admin/members/read/{id}', config('lap.controllers.member') . '@read')->name('admin.members.read');
+    Route::get('admin/members/update/{id}', config('lap.controllers.member') . '@updateForm')->name('admin.members.update');
+    Route::patch('admin/members/update/{id}', config('lap.controllers.member') . '@update');
+    Route::get('admin/members/password/{id}', config('lap.controllers.member') . '@passwordForm')->name('admin.usemembersrs.password');
+    Route::patch('admin/members/password/{id}', config('lap.controllers.member') . '@password');
+    Route::delete('admin/members/delete/{id}', config('lap.controllers.member') . '@delete')->name('admin.members.delete');
+
     // activity_logs
     Route::get('admin/activity_logs', config('lap.controllers.activity_log') . '@index')->name('admin.activity_logs');
     Route::get('admin/activity_logs/read/{id}', config('lap.controllers.activity_log') . '@read')->name('admin.activity_logs.read');
