@@ -11,4 +11,7 @@ class Member extends Model
     protected $table   = 'members';
     use DynamicFillable, UserTimezone;
     
+    public function user(){
+        return $this->belongsTo(\App\User::class);
+    }
 }

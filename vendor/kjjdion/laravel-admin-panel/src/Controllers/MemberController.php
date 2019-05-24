@@ -5,6 +5,8 @@ namespace Kjjdion\LaravelAdminPanel\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Html\Builder;
+use Illuminate\Support\Facades\Auth;
+use Kjjdion\LaravelAdminPanel\Models\Member;
 
 class MemberController extends Controller
 {
@@ -21,27 +23,36 @@ class MemberController extends Controller
     public function index(Builder $builder)
     {
         if (request()->ajax()) {
-            $users = app(config('auth.providers.users.model'))->with('roles');
-            $datatable = datatables($users)
-                ->editColumn('roles', function ($user) {
-                    return $user->roles->sortBy('name')->implode('name', ', ');
+            $objMember = Member::with('user');
+            $datatable = datatables($objMember)
+                ->editColumn('user', function ($objMember) {
+                    return $objMember->user->name;
                 })
-                ->editColumn('actions', function ($user) {
-                    return view('lap::users.datatable.actions', compact('user'));
+                ->editColumn('actions', function ($objMember) {
+                    return view('lap::members.datatable.actions', compact('objMember'));
                 })
                 ->rawColumns(['actions']);
-
             return $datatable->toJson();
         }
 
         $html = $builder->columns([
             ['title' => 'Name', 'data' => 'name'],
-            ['title' => 'Email Address', 'data' => 'email'],
-            ['title' => 'Timezone', 'data' => 'timezone'],
-            ['title' => 'Roles', 'data' => 'roles', 'searchable' => false, 'orderable' => false],
+            ['title' => 'Father/Husband', 'data' => 'father_husband'],
+            ['title' => 'Age', 'data' => 'age'],
+            ['title' => 'Email', 'data' => 'email'],
+            ['title' => 'Current Address', 'data' => 'current_address'],
+            ['title' => 'District', 'data' => 'district'],
+            ['title' => 'State', 'data' => 'state'],
+            ['title' => 'Date Of Issue', 'data' => 'date_of_issue'],
+            ['title' => 'Gender', 'data' => 'gender'],
+            ['title' => 'Aadhaar No', 'data' => 'uid_aadhaar_no'],
+            ['title' => 'Family Members', 'data' => 'family_members'],
+            ['title' => 'Mobile No', 'data' => 'card_holder_mobile'],
+            ['title' => 'Health Card Type No', 'data' => 'health_card_type'],
+            ['title' => 'Old Desease', 'data' => 'old_desease', 'searchable' => false, 'orderable' => false],
             ['title' => '', 'data' => 'actions', 'searchable' => false, 'orderable' => false],
         ]);
-        $html->setTableAttribute('id', 'users_datatable');
+        $html->setTableAttribute('id', 'members_datatable');
 
         return view('lap::members.index', compact('html'));
     }
@@ -54,27 +65,22 @@ class MemberController extends Controller
     }
 
     public function create()
-    {
+    {      
         $this->validate(request(), [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'email' => 'required|email|unique:users'
+        ]);
+        $data=array_merge(request()->all(), [
+            'user_id' => Auth::id(),
         ]);
 
-        $data = array_merge(request()->all(), [
-            'password' => Hash::make(request()->input('password')),
-        ]);
-
-        $user = app(config('auth.providers.users.model'))->create($data);
-        $user->roles()->sync(request()->input('roles'));
-
-        activity('Created User: ' . $user->name, array_except($data, ['password', 'password_confirmation']), $user);
+        $objMember = Member::create($data);
+        
         flash(['success', 'User created!']);
         
         if (request()->input('_submit') == 'redirect') {
-            return response()->json(['redirect' => session()->pull('url.intended', route('admin.users'))]);
-        }
-        else {
+            return response()->json(['redirect' => session()->pull('url.intended', route('admin.members'))]);
+        }else {
             return response()->json(['reload_page' => true]);
         }
     }
