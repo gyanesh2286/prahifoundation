@@ -1,6 +1,7 @@
 @extends('lap::layouts.auth')
 
 @section('title', 'User')
+
 @section('child-content')
     <div class="row mb-3">
         <div class="col-md">
@@ -20,12 +21,40 @@
             @endcan
         </div>
     </div>
-
+    <div class="col-md-12">
+        <div class="id-card-holder">
+            <div class="id-card">
+               
+                <div class="header">
+                    <img src="https://lh3.googleusercontent.com/-ebxWAGWvWg0/WTABBfdBv2I/AAAAAAAAAqw/qef78bVeIngorIsmAUD4tWVUd8WDvZyuQCEw/w140-h74-p/Untitled-2.png">
+                </div>
+                <div class="photo">
+                    <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAuXAAAAJDE2YjQzOGZkLTU5YzAtNGRkNC04NTUzLTM3Zjg0ZWVlMGQxZA.jpg">
+                </div>
+            <div class="username">
+                    <span>Employee Name:</span><span><h6> Near PMG Junction</h6></span> 
+                    <p> Near PMG Junction</p>
+            </div>
+            <div class="empId"> Das DA Das DA
+            </div>
+                <div> Das DA Das DA
+                    </div>
+                <p><strong>"PENGG"</strong>HOUSE,4th Floor, TC 11/729(4), Division Office Road <p>
+                <p>Near PMG Junction, Thiruvananthapuram Kerala, India <strong>695033</strong></p>
+                <p>Ph: 9446062493 | E-ail: info@onetikk.info</p>
+    
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">ID</div>
+        <div class="col-md-6">{{ $user->id }}</div>
+    </div>
     <div class="list-group">
         <div class="list-group-item">
             <div class="row">
-                <div class="col-md-2">ID</div>
-                <div class="col-md-8">{{ $user->id }}</div>
+                <div class="col-md-6">ID</div>
+                <div class="col-md-6">{{ $user->id }}</div>
             </div>
         </div>
 
@@ -77,3 +106,58 @@
         </div>
     </div>
 @endsection
+<style>
+
+.id-card-holder {
+    width: 400px;
+    padding: 2px;
+    margin: 0 auto;
+    background-color: #1f1f1f;
+    border-radius: 5px;
+    position: relative;
+    height: 200px;
+}
+
+.id-card {
+    background-color: #fff;
+    padding: 1px;
+    border-radius: 1px;
+    text-align: center;
+    box-shadow: 0 0 1.5px 0px #b9b9b9;
+}
+.id-card img {
+    margin: 0 auto;
+}
+.header img {
+    width: 100px;
+    height: 30px;
+    margin-top: 5px;
+}
+.photo img {
+    width: 80px;
+    margin-top: 5px;
+    float: left;
+}
+.username{
+    width: 200px;
+    margin-top: 5px;
+    float: left;
+}
+.empId{
+    width: 150px;
+    margin-top: 5px;
+    float: right;
+}
+h2 {
+    font-size: 15px;
+    margin: 5px 0;
+}
+h3 {
+    font-size: 12px;
+    margin: 2.5px 0;
+    font-weight: 300;
+}
+p {
+    font-size: 14px;
+}
+</style>

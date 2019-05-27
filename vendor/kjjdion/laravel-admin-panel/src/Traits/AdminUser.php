@@ -10,7 +10,7 @@ trait AdminUser
     // roles relationship
     public function roles()
     {
-        return $this->belongsToMany(config('lap.models.role'));
+        return $this->belongsToMany(config('lap.models.role'),'role_user','role_id','user_id');
     }
 
     // permissions relationship

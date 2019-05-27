@@ -5,7 +5,7 @@ namespace Kjjdion\LaravelAdminPanel\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Html\Builder;
-
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function __construct()
@@ -21,7 +21,13 @@ class UserController extends Controller
     public function index(Builder $builder)
     {
         if (request()->ajax()) {
-            $users = app(config('auth.providers.users.model'))->with('roles');
+            
+            $objAuth = app(config('auth.providers.users.model'))->with('roles.roleUser');
+                       $objAuth=  $objAuth->has('roles')->find(Auth::id());
+            $users = app(config('auth.providers.users.model'))->with(['roles'=>function($query)use($objAuth){
+                $query->where('id','<',$objAuth->roles->id);
+            }]);
+            dd($users->has('roles')->get());
             $datatable = datatables($users)
                 ->editColumn('roles', function ($user) {
                     return $user->roles->sortBy('name')->implode('name', ', ');
