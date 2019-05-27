@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Kjjdion\LaravelAdminPanel\Traits\AdminUser;
 use Kjjdion\LaravelAdminPanel\Traits\DynamicFillable;
 use Kjjdion\LaravelAdminPanel\Traits\UserTimezone;
+use Kjjdion\LaravelAdminPanel\Models\RoleUser;
+use Kjjdion\LaravelAdminPanel\Models\Role;
 
 class User extends Authenticatable
 {
@@ -37,4 +39,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function roleUser(){
+        return $this->hasOne(RoleUser::class);
+    }
+    public function role(){
+        return $this->hasOne(Role::class);
+    }
 }

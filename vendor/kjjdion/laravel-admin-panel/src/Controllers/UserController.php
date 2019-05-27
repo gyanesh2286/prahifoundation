@@ -22,12 +22,12 @@ class UserController extends Controller
     {
         if (request()->ajax()) {
             
-            $objAuth = app(config('auth.providers.users.model'))->with('roles.roleUser');
-                       $objAuth=  $objAuth->has('roles')->find(Auth::id());
+            $objAuth = app(config('auth.providers.users.model'))->with('roleUser');
+                       $objAuth=  $objAuth->has('roleUser')->find(Auth::id());
             $users = app(config('auth.providers.users.model'))->with(['roles'=>function($query)use($objAuth){
-                $query->where('id','<',$objAuth->roles->id);
+                $query->where('roles.level','<',$objAuth->roleUser->role_id);
             }]);
-            dd($users->has('roles')->get());
+            $users->has('roles');
             $datatable = datatables($users)
                 ->editColumn('roles', function ($user) {
                     return $user->roles->sortBy('name')->implode('name', ', ');
