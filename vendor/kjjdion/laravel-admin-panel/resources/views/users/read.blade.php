@@ -24,24 +24,34 @@
     <div class="col-md-12">
         <div class="id-card-holder">
             <div class="id-card">
-               
-                <div class="header">
-                    <img src="https://lh3.googleusercontent.com/-ebxWAGWvWg0/WTABBfdBv2I/AAAAAAAAAqw/qef78bVeIngorIsmAUD4tWVUd8WDvZyuQCEw/w140-h74-p/Untitled-2.png">
-                </div>
-                <div class="photo">
-                    <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAuXAAAAJDE2YjQzOGZkLTU5YzAtNGRkNC04NTUzLTM3Zjg0ZWVlMGQxZA.jpg">
-                </div>
-            <div class="username">
-                    <span>Employee Name:</span><span><h6> Near PMG Junction</h6></span> 
-                    <p> Near PMG Junction</p>
-            </div>
-            <div class="empId"> Das DA Das DA
-            </div>
-                <div> Das DA Das DA
-                    </div>
-                <p><strong>"PENGG"</strong>HOUSE,4th Floor, TC 11/729(4), Division Office Road <p>
-                <p>Near PMG Junction, Thiruvananthapuram Kerala, India <strong>695033</strong></p>
-                <p>Ph: 9446062493 | E-ail: info@onetikk.info</p>
+                            <table width="400">
+                                    <tr class="text-left">
+                                            <td width="100%"  style="padding-left: 80px;"><img src="{{asset('/')}}img/card_logo.jpg" width="220" height="80"></td>
+                                    </tr>
+                                <tr class="text-left">
+                                    <td  style="padding:0px 250px 415px 10px"><img src="{{asset('/')}}images/logovoucher.png" width="80px" height="70px"/></td>
+                                </tr>
+                                <tr class="text-left">
+                                        <td  style="padding-left: 20px;padding-top:0px;">
+                                        
+                                                <p class="text-left" style="font-size: 11px;">
+                                                    THANK YOU FOR <br>
+                                                    <span>Emp. code : </span><span>Emp. code: </span>
+                                                </p>
+                                                <p class="text-left" style="font-size: 11px;" > 
+                                                        <span>Emp. code : </span><span>Emp. code: </span><br>
+                                                        <span>Date of issue : </span><span>Emp. code: </span><br>
+                                                        <span>Contact No : </span><span>Emp. code: </span><br>
+                                                        <span>Emp. code : </span><span>Emp. code: </span> 
+                                                </p>
+                                                <p class="text-left"> 
+                                                        <span>Emp. code :</span><span>visit the web site</span> 
+                                                    </p>
+                                                
+                                            </td>
+                                </tr>
+                                
+                            </table>
     
             </div>
         </div>
