@@ -55,7 +55,7 @@ class Builder
     /**
      * @var array
      */
-    protected $attributes = [];
+    protected $attributes = ["scrollX"=> true];
 
     /**
      * @param Repository $config

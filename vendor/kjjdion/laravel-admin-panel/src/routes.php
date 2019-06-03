@@ -40,6 +40,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('admin/users/password/{id}', config('lap.controllers.user') . '@passwordForm')->name('admin.users.password');
     Route::patch('admin/users/password/{id}', config('lap.controllers.user') . '@password');
     Route::delete('admin/users/delete/{id}', config('lap.controllers.user') . '@delete')->name('admin.users.delete');
+    Route::get('admin/users/print-id-card/{id}', config('lap.controllers.user') . '@printIdCard')->name('admin.users.print-id-card');
 
     // user
     Route::get('admin/members', config('lap.controllers.member') . '@index')->name('admin.members');

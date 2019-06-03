@@ -22,15 +22,16 @@ class UserController extends Controller
     {
         if (request()->ajax()) {
             
-            $objAuth = app(config('auth.providers.users.model'))->with('roleUser');
-                       $objAuth=  $objAuth->has('roleUser')->find(Auth::id());
-            $users = app(config('auth.providers.users.model'))->with(['roles'=>function($query)use($objAuth){
-                $query->where('roles.level','<',$objAuth->roleUser->role_id);
-            }]);
-            $users->has('roles');
-            $datatable = datatables($users)
+            $objAuth    = app(config('auth.providers.users.model'))->with('roleUser');
+            $objAuth    =  $objAuth->has('roleUser')->find(Auth::id());
+            $users      = app(config('auth.providers.users.model'))::select('users.*','roles.name as rolename','roles.level','roles.id as role_id')->leftJoin('role_user', function($join) {
+                                $join->on('users.id', '=', 'role_user.user_id');
+                            })->leftJoin('roles', function($join) {
+                                $join->on('roles.id', '=', 'role_user.role_id');
+                            })->where('roles.level','>',$objAuth->roleUser->role_id);
+            $datatable  = datatables($users)
                 ->editColumn('roles', function ($user) {
-                    return $user->roles->sortBy('name')->implode('name', ', ');
+                    return $user->rolename;
                 })
                 ->editColumn('actions', function ($user) {
                     return view('lap::users.datatable.actions', compact('user'));
@@ -41,6 +42,7 @@ class UserController extends Controller
         }
 
         $html = $builder->columns([
+            ['title' => 'Emp Id', 'data' => 'emp_id'],
             ['title' => 'Name', 'data' => 'name'],
             ['title' => 'Email Address', 'data' => 'email'],
             ['title' => 'Timezone', 'data' => 'timezone'],
@@ -87,7 +89,12 @@ class UserController extends Controller
 
     public function read($id)
     {
-        $user = app(config('auth.providers.users.model'))->findOrFail($id);
+//        $user = app(config('auth.providers.users.model'))->findOrFail($id);
+        $user      = app(config('auth.providers.users.model'))::select('users.*','roles.name as rolename','roles.level','roles.id')->leftJoin('role_user', function($join) {
+                                $join->on('users.id', '=', 'role_user.user_id');
+                            })->leftJoin('roles', function($join) {
+                                $join->on('roles.id', '=', 'role_user.role_id');
+                            })->where('users.id',$id)->first();
 
         return view('lap::users.read', compact('user'));
     }
