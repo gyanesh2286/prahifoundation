@@ -20,9 +20,24 @@ Route::get('about', function () {
 Route::get('services', function () {
     return view('services');
 });
+Route::get('healthcare', function () {
+    return view('healthcare');
+});
+Route::get('education', function () {
+    return view('education');
+});
+Route::get('agriculture', function () {
+    return view('agriculture');
+});
 Route::get('contact', function () {
     return view('contact');
 });
 Auth::routes();
+
+Route::get('images/{image}', function($image) {
+    if (File::exists($imagePath = storage_path("app/images/{$image}"))) {
+        return Image::make($imagePath)->response();
+    }
+})->where('image', '.+');
 
 Route::get('/home', 'HomeController@index')->name('home');

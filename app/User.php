@@ -10,6 +10,7 @@ use Kjjdion\LaravelAdminPanel\Traits\DynamicFillable;
 use Kjjdion\LaravelAdminPanel\Traits\UserTimezone;
 use Kjjdion\LaravelAdminPanel\Models\RoleUser;
 use Kjjdion\LaravelAdminPanel\Models\Role;
+use App\Media;
 
 class User extends Authenticatable
 {
@@ -39,11 +40,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
+    public  function getDobAttribute($value){
+        return date('d/m/Y',strtotime($value));
+    }
+    public  function setDobAttribute($value){
+        return date('Y/m/d',strtotime($value));
+    }
+    public  function getCreatedAtAttribute($value){
+        return date('d/m/Y',strtotime($value));
+    }
+
     public function roleUser(){
         return $this->hasOne(RoleUser::class);
     }
     public function role(){
         return $this->hasOne(Role::class);
+    }
+
+    public function media(){
+        return $this->hasOne(Media::class,'user_id');
+    } 
+    
+    public function getGovtRegdNo(){
+        return 'MAH/21021/JAL'.'<br>'.'JAL/135/2019';
     }
 }
