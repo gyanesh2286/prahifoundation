@@ -10,6 +10,7 @@ use Kjjdion\LaravelAdminPanel\Traits\DynamicFillable;
 use Kjjdion\LaravelAdminPanel\Traits\UserTimezone;
 use Kjjdion\LaravelAdminPanel\Models\RoleUser;
 use Kjjdion\LaravelAdminPanel\Models\Role;
+use App\Media;
 
 class User extends Authenticatable
 {
@@ -46,4 +47,8 @@ class User extends Authenticatable
     public function role(){
         return $this->hasOne(Role::class);
     }
+
+    public function media(){
+        return $this->hasOne(Media::class,'user_id');
+    } 
 }

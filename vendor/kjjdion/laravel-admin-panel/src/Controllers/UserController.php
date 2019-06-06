@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Html\Builder;
 use Illuminate\Support\Facades\Auth;
+use App\Media;
 class UserController extends Controller
 {
     public function __construct()
@@ -111,13 +112,20 @@ class UserController extends Controller
     {
         $this->validate(request(), [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
+            // 'email' => 'required|email|unique:users,email,' . $id,
         ]);
-
-        $user = app(config('auth.providers.users.model'))->findOrFail($id);
+       
+        $user = app(config('auth.providers.users.model'))->with('media')->findOrFail($id);
         $user->update(request()->all());
         $user->roles()->sync(request()->input('roles'));
-
+        
+        if($user->media){
+            $user->media->uploadImage($user,request()->file('profile_image'));
+        }else{
+            $objMedia = new Media();
+            $objMedia->uploadImage($user,request()->file('profile_image'));
+        }
+       
         activity('Updated User: ' . $user->name, request()->all(), $user);
         flash(['success', 'User updated!']);
         

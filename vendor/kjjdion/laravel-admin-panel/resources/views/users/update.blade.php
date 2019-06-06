@@ -4,7 +4,7 @@
 @section('child-content')
     <h2>@yield('title')</h2>
 
-    <form method="POST" action="{{ route('admin.users.update', $user->id) }}" novalidate data-ajax-form>
+    <form method="POST" action="{{ route('admin.users.update', $user->id) }}" enctype="multipart/form-data" novalidate data-ajax-form>
         @csrf
         @method('PATCH')
 
@@ -18,15 +18,95 @@
                 </div>
             </div>
 
-            <div class="list-group-item">
+            {{-- <div class="list-group-item">
                 <div class="form-group row mb-0">
                     <label for="email" class="col-md-2 col-form-label">Email</label>
                     <div class="col-md-8">
                         <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
                     </div>
                 </div>
+            </div> --}}
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Father Name</label>
+                    <div class="col-md-8">
+                        <input type="text" name="father_name" id="father_name" class="form-control" value="{{ $user->father_name }}">
+                    </div>
+                </div>
             </div>
-
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Mother Name</label>
+                    <div class="col-md-8">
+                        <input type="text" name="mother_name" id="mother_name" class="form-control" value="{{ $user->mother_name }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Education</label>
+                    <div class="col-md-8">
+                        <input type="text" name="education" id="education" class="form-control" value="{{ $user->education }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Full Address</label>
+                    <div class="col-md-8">
+                        <input type="text" name="full_address" id="full_address" class="form-control" value="{{ $user->full_address }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Aadhaar No</label>
+                    <div class="col-md-8">
+                        <input type="text" name="aadhaar_no" id="aadhaar_no" class="form-control" value="{{ $user->aadhaar_no }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">District</label>
+                    <div class="col-md-8">
+                        <input type="text" name="district" id="district" class="form-control" value="{{ $user->district }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">State</label>
+                    <div class="col-md-8">
+                        <input type="text" name="state" id="state" class="form-control" value="{{ $user->state }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">DOB</label>
+                    <div class="col-md-8">
+                        <input type="text" name="dob" id="dob" class="form-control" value="{{ $user->dob }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Mobile No</label>
+                    <div class="col-md-8">
+                        <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="{{ $user->mobile_no }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Profile Photo</label>
+                    <div class="col-md-8">
+                        <input type="file" name="profile_image" id="profile_image" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
             <div class="list-group-item">
                 <div class="form-group row mb-0">
                     <label class="col-md-2 col-form-label">Roles</label>
