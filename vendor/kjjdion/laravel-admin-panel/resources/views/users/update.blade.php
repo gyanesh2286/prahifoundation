@@ -97,6 +97,14 @@
                         <input type="text" name="mobile_no" id="mobile_no" class="form-control" value="{{ $user->mobile_no }}">
                     </div>
                 </div>
+
+            </div><div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Blood Group</label>
+                    <div class="col-md-8">
+                        <input type="text" name="blood_group" id="blood_group" class="form-control" value="{{ $user->blood_group }}">
+                    </div>
+                </div>
             </div>
             <div class="list-group-item">
                 <div class="form-group row mb-0">

@@ -68,4 +68,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::patch('admin/docs/move/{id}', config('lap.controllers.doc') . '@move')->name('admin.docs.move');
     Route::delete('admin/docs/delete/{id}', config('lap.controllers.doc') . '@delete')->name('admin.docs.delete');
     
+    Route::get('images/{image}', function($image) {
+    if (File::exists($imagePath = storage_path("app/images/{$image}"))) {
+        return Image::make($imagePath)->response();
+    }
+})->where('image', '.+');
+    
 });

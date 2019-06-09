@@ -91,7 +91,7 @@ class UserController extends Controller
     public function read($id)
     {
 //        $user = app(config('auth.providers.users.model'))->findOrFail($id);
-        $user      = app(config('auth.providers.users.model'))::select('users.*','roles.name as rolename','roles.level','roles.id')->leftJoin('role_user', function($join) {
+        $user      = app(config('auth.providers.users.model'))::with('media')->select('users.*','roles.name as rolename','roles.level','roles.id as role_id')->leftJoin('role_user', function($join) {
                                 $join->on('users.id', '=', 'role_user.user_id');
                             })->leftJoin('roles', function($join) {
                                 $join->on('roles.id', '=', 'role_user.role_id');
