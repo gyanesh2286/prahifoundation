@@ -29,6 +29,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('admin/roles/update/{id}', config('lap.controllers.role') . '@updateForm')->name('admin.roles.update');
     Route::patch('admin/roles/update/{id}', config('lap.controllers.role') . '@update');
     Route::delete('admin/roles/delete/{id}', config('lap.controllers.role') . '@delete')->name('admin.roles.delete');
+    
+    // district
+    Route::get('admin/district', config('lap.controllers.district') . '@index')->name('admin.district');
+    Route::get('admin/district/create', config('lap.controllers.district') . '@createForm')->name('admin.district.create');
+    Route::post('admin/district/create', config('lap.controllers.district') . '@create');
+    Route::get('admin/district/read/{id}', config('lap.controllers.district') . '@read')->name('admin.district.read');
+    Route::get('admin/district/update/{id}', config('lap.controllers.district') . '@updateForm')->name('admin.district.update');
+    Route::patch('admin/district/update/{id}', config('lap.controllers.district') . '@update');
+    Route::delete('admin/district/delete/{id}', config('lap.controllers.district') . '@delete')->name('admin.district.delete');
 
     // user
     Route::get('admin/users', config('lap.controllers.user') . '@index')->name('admin.users');

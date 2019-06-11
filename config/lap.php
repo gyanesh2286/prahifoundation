@@ -34,6 +34,7 @@ return [
         'role' => 'Kjjdion\LaravelAdminPanel\Controllers\RoleController',
         'user' => 'Kjjdion\LaravelAdminPanel\Controllers\UserController',
         'member' => 'Kjjdion\LaravelAdminPanel\Controllers\MemberController',
+        'district' => 'Kjjdion\LaravelAdminPanel\Controllers\DistrictController',
     ],
 
     // models used by package
@@ -44,6 +45,7 @@ return [
         'role' => 'Kjjdion\LaravelAdminPanel\Models\Role',
         'role_user' => 'Kjjdion\LaravelAdminPanel\Models\RoleUser',
         'setting' => 'Kjjdion\LaravelAdminPanel\Models\Setting',
+        'district' => 'Kjjdion\LaravelAdminPanel\Models\District',
     ],
 
 ];

@@ -6,6 +6,11 @@
         <a href="{{ route('admin.roles') }}"><i class="fal fa-fw fa-shield-alt mr-3"></i>Roles</a>
     </li>
 @endcan
+@can('Read Roles')
+    <li{!! request()->is('admin/district') ? ' class="active"' : '' !!}>
+        <a href="{{ route('admin.district') }}"><i class="fal fa-fw fa-shield-alt mr-3"></i>Manage District</a>
+    </li>
+@endcan
 @can('Read Users')
     <li{!! request()->is('admin/users') ? ' class="active"' : '' !!}>
         <a href="{{ route('admin.users') }}"><i class="fal fa-fw fa-user mr-3"></i>Users</a>
