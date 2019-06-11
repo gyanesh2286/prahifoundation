@@ -41,6 +41,7 @@ return [
         'doc' => 'Kjjdion\LaravelAdminPanel\Models\Doc',
         'permission' => 'Kjjdion\LaravelAdminPanel\Models\Permission',
         'role' => 'Kjjdion\LaravelAdminPanel\Models\Role',
+        'role_user' => 'Kjjdion\LaravelAdminPanel\Models\RoleUser',
         'setting' => 'Kjjdion\LaravelAdminPanel\Models\Setting',
     ],
 

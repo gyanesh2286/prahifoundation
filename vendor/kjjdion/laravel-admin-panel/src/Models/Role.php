@@ -16,7 +16,4 @@ class Role extends Model
         return $this->belongsToMany(config('lap.models.permission'));
     }
 
-    public function roleUser(){
-        return $this->hasOne(config('lap.models.role_user'));
-    }
 }

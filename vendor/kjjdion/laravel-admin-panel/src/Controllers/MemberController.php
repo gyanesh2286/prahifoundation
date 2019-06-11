@@ -89,7 +89,7 @@ class MemberController extends Controller
     {
         $user = app(config('auth.providers.users.model'))->findOrFail($id);
 
-        return view('lap::users.read', compact('user'));
+        return view('lap::members.read', compact('user'));
     }
 
     public function updateForm($id)
