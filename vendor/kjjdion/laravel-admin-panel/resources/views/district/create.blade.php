@@ -1,37 +1,34 @@
 @extends('lap::layouts.auth')
 
-@section('title', 'Create Role')
+@section('title', 'Create District')
 @section('child-content')
     <h2>@yield('title')</h2>
 
-    <form method="POST" action="{{ route('admin.roles.create') }}" novalidate data-ajax-form>
+    <form method="POST" action="{{ route('admin.district.create') }}" novalidate data-ajax-form>
         @csrf
 
         <div class="list-group">
             <div class="list-group-item">
                 <div class="form-group row mb-0">
-                    <label for="name" class="col-md-2 col-form-label">Name</label>
+                    <label for="name" class="col-md-2 col-form-label">District Code</label>
                     <div class="col-md-8">
-                        <input type="text" name="name" id="name" class="form-control">
+                        <input type="text" name="dist_code" id="dist_code" class="form-control">
                     </div>
                 </div>
             </div>
-
             <div class="list-group-item">
                 <div class="form-group row mb-0">
-                    <label class="col-md-2 col-form-label">Permissions</label>
+                    <label for="name" class="col-md-2 col-form-label">Head Office Address</label>
                     <div class="col-md-8">
-                        <div class="form-control-plaintext">
-                            @foreach ($group_permissions as $group => $permissions)
-                                <b class="d-block{{ !$loop->first ? ' mt-3' : '' }}">{{ $group }}</b>
-                                @foreach ($permissions as $permission)
-                                    <div class="custom-control custom-control-inline custom-checkbox">
-                                        <input type="checkbox" name="permissions[]" id="permission_{{ $permission->id }}" class="custom-control-input" value="{{ $permission->id }}">
-                                        <label for="permission_{{ $permission->id }}" class="custom-control-label">{{ $permission->name }}</label>
-                                    </div>
-                                @endforeach
-                            @endforeach
-                        </div>
+                        <input type="text" name="head_office_address" id="head_office_address" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="name" class="col-md-2 col-form-label">Branch Office Address</label>
+                    <div class="col-md-8">
+                        <input type="text" name="branch_office_address" id="branch_office_address" class="form-control">
                     </div>
                 </div>
             </div>

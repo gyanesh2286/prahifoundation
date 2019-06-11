@@ -4,6 +4,8 @@ namespace Kjjdion\LaravelAdminPanel\Controllers;
 
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Html\Builder;
+use Illuminate\Support\Facades\Auth;
+use Kjjdion\LaravelAdminPanel\Models\District;
 
 class DistrictController extends Controller
 {
@@ -20,14 +22,12 @@ class DistrictController extends Controller
     public function index(Builder $builder)
     {
         if (request()->ajax()) {
-            $permissions_count = app(config('lap.models.permission'))->count();
-            $roles = app(config('lap.models.role'))->withCount('permissions');
+            $roles = app(config('lap.models.district'))->get();
+            
             $datatable = datatables($roles)
-                ->editColumn('permissions', function ($role) use ($permissions_count) {
-                    return ($role->admin ? $permissions_count : $role->permissions_count) . ' / ' . $permissions_count;
-                })
+                
                 ->editColumn('actions', function ($role) {
-                    return view('lap::roles.datatable.actions', compact('role'));
+                    return view('lap::district.datatable.actions', compact('role'));
                 })
                 ->rawColumns(['actions']);
 
@@ -35,36 +35,37 @@ class DistrictController extends Controller
         }
 
         $html = $builder->columns([
-            ['title' => 'Name', 'data' => 'name'],
-            ['title' => 'Permissions', 'data' => 'permissions', 'searchable' => false, 'orderable' => false],
+            ['title' => 'Name', 'data' => 'dist_code'],
             ['title' => '', 'data' => 'actions', 'searchable' => false, 'orderable' => false],
         ]);
         $html->setTableAttribute('id', 'roles_datatable');
 
-        return view('lap::roles.index', compact('html'));
+        return view('lap::district.index', compact('html'));
     }
 
     public function createForm()
     {
-        $group_permissions = app(config('lap.models.permission'))->all()->groupBy('group');
+        $objDistrict = app(config('lap.models.district'))->all()->groupBy('id');
 
-        return view('lap::roles.create', compact('group_permissions'));
+        return view('lap::district.create', compact('objDistrict'));
     }
 
     public function create()
     {
         $this->validate(request(), [
-            'name' => 'required|unique:roles',
+            'dist_code' => 'required|unique:district',
         ]);
 
-        $role = app(config('lap.models.role'))->create(request()->all());
-        $role->permissions()->sync(request()->input('permissions'));
+        $data=array_merge(request()->all(), [
+            'user_id' => Auth::id(),
+        ]);
 
-        activity('Created Role: ' . $role->name, request()->all(), $role);
-        flash(['success', 'Role created!']);
+        District::create($data);
+        
+        flash(['success', 'district created!']);
 
         if (request()->input('_submit') == 'redirect') {
-            return response()->json(['redirect' => session()->pull('url.intended', route('admin.roles'))]);
+            return response()->json(['redirect' => session()->pull('url.intended', route('admin.district'))]);
         }
         else {
             return response()->json(['reload_page' => true]);

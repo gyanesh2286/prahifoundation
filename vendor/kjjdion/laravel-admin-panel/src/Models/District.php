@@ -8,12 +8,7 @@ use Kjjdion\LaravelAdminPanel\Traits\UserTimezone;
 
 class District extends Model
 {
+     protected $table   = 'district';
     use DynamicFillable, UserTimezone;
-
-    // permissions relationship
-    public function permissions()
-    {
-        return $this->belongsToMany(config('lap.models.permission'));
-    }
 
 }
