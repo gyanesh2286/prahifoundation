@@ -74,34 +74,29 @@ class DistrictController extends Controller
 
     public function read($id)
     {
-        $role = app(config('lap.models.role'))->findOrFail($id);
+        $objDistrict = app(config('lap.models.district'))->findOrFail($id);
 
-        return view('lap::roles.read', compact('role'));
+        return view('lap::district.read', compact('objDistrict'));
     }
 
     public function updateForm($id)
     {
-        $role = app(config('lap.models.role'))->findOrFail($id);
-        $group_permissions = app(config('lap.models.permission'))->all()->groupBy('group');
-
-        return view('lap::roles.update', compact('role', 'group_permissions'));
+        $objDistrict = app(config('lap.models.district'))->findOrFail($id);
+        return view('lap::district.update', compact('objDistrict'));
     }
 
     public function update($id)
     {
         $this->validate(request(), [
-            'name' => 'required|unique:roles,name,' . $id,
+            'dist_code' => 'required|unique:district,dist_code,' . $id,
         ]);
 
-        $role = app(config('lap.models.role'))->findOrFail($id);
+        $role = app(config('lap.models.district'))->findOrFail($id);
         $role->update(request()->all());
-        $role->permissions()->sync(request()->input('permissions'));
-
-        activity('Updated Role: ' . $role->name, request()->all(), $role);
-        flash(['success', 'Role updated!']);
+        flash(['success', 'District updated!']);
 
         if (request()->input('_submit') == 'redirect') {
-            return response()->json(['redirect' => session()->pull('url.intended', route('admin.roles'))]);
+            return response()->json(['redirect' => session()->pull('url.intended', route('admin.district'))]);
         }
         else {
             return response()->json(['reload_page' => true]);
@@ -110,10 +105,9 @@ class DistrictController extends Controller
 
     public function delete($id)
     {
-        $role = app(config('lap.models.role'))->findOrFail($id);
+        $role = app(config('lap.models.district'))->findOrFail($id);
         $role->delete();
 
-        activity('Deleted Role: ' . $role->name, $role->toArray());
         $flash = ['success', 'Role deleted!'];
 
         if (request()->input('_submit') == 'reload_datatables') {
@@ -125,7 +119,7 @@ class DistrictController extends Controller
         else {
             flash($flash);
 
-            return redirect()->route('admin.roles');
+            return redirect()->route('admin.district');
         }
     }
 }

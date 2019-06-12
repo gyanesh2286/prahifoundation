@@ -59,8 +59,8 @@ class User extends Authenticatable
     }
 
     public function media(){
-        return $this->hasOne(Media::class,'user_id');
-    }
+        return $this->morphMany(Media::class, 'mediable');
+    } 
     public function getGovtRegdNo(){
         return 'MAH/21021/JAL'.'<br>'.'JAL/135/2019';
     }

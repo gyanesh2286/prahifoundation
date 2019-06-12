@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Html\Builder;
 use Illuminate\Support\Facades\Auth;
 use Kjjdion\LaravelAdminPanel\Models\Member;
+use App\Media;
 
 class MemberController extends Controller
 {
@@ -41,7 +42,7 @@ class MemberController extends Controller
             ['title' => 'Age', 'data' => 'age'],
             ['title' => 'Email', 'data' => 'email'],
             ['title' => 'Current Address', 'data' => 'current_address'],
-            ['title' => 'District', 'data' => 'district'],
+            ['title' => 'District', 'data' => 'district_name'],
             ['title' => 'State', 'data' => 'state'],
             ['title' => 'Date Of Issue', 'data' => 'date_of_issue'],
             ['title' => 'Gender', 'data' => 'gender'],
@@ -59,9 +60,9 @@ class MemberController extends Controller
 
     public function createForm()
     {
-        $roles = app(config('lap.models.role'))->all()->sortBy('name');
+        $objDistrict = app(config('lap.models.district'))->get(['id','dist_code']);
 
-        return view('lap::members.create', compact('roles'));
+        return view('lap::members.create', compact('objDistrict'));
     }
 
     public function create()
@@ -70,12 +71,18 @@ class MemberController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users'
         ]);
-        $data=array_merge(request()->all(), [
+        $data=array_merge(request()->input(), [
             'user_id' => Auth::id(),
         ]);
 
-        $objMember = Member::create($data);
+        $objMember = Member::with('media')->create($data);
         
+        if(!$objMember->media->isEmpty()){
+            $objMember->media->uploadImage(Auth::user(),$objMember,request()->file('card_image'));
+        }else{
+            $objMedia = new Media();
+            $objMedia->uploadImage(Auth::user(),$objMember,request()->file('card_image'));
+        }
         flash(['success', 'User created!']);
         
         if (request()->input('_submit') == 'redirect') {
@@ -87,17 +94,14 @@ class MemberController extends Controller
 
     public function read($id)
     {
-        $user = app(config('auth.providers.users.model'))->findOrFail($id);
-
-        return view('lap::members.read', compact('user'));
+        $members = Member::with('district','media')->find($id);
+        return view('lap::members.read', compact('members'));
     }
 
     public function updateForm($id)
     {
-        $user = app(config('auth.providers.users.model'))->findOrFail($id);
-        $roles = app(config('lap.models.role'))->all()->sortBy('name');
-
-        return view('lap::users.update', compact('user', 'roles'));
+        $user = Member::findOrFail($id);
+        return view('lap::members.update', compact('user'));
     }
 
     public function update($id)

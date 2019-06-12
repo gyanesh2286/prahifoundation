@@ -1,10 +1,10 @@
 @extends('lap::layouts.auth')
 
-@section('title', 'Register Member ')
+@section('title', 'Register Heath Card ')
 @section('child-content')
     <h2>@yield('title')</h2>
 <div class="box-body">
-    <form method="POST" action="{{ route('admin.members.create') }}" novalidate data-ajax-form>
+    <form method="POST" action="{{ route('admin.members.create') }}" enctype="multipart/form-data" novalidate data-ajax-form>
         @csrf
 
         <div class="row">
@@ -29,8 +29,8 @@
                 <input type="text" name="state" id="state" class="form-control">
             </div>
             <div class="col-lg-6 col-xs-12 pad">
-                <label>District :</label>
-                <input type="text" name="district" id="district" class="form-control">
+                <label>District Name:</label>
+                <input type="text" name="district_name" id="district" class="form-control">
             </div>
             <div class="col-lg-6 col-xs-12 pad">
                 <label>Date of Issue :</label>
@@ -44,7 +44,7 @@
                 </select>
             </div>
             <div class="col-lg-6 col-xs-12 pad">
-                <label>Old Desease If Any :</label>
+                <label>Old Disease If Any :</label>
                 <input type="text" name="old_desease" id="old_desease" class="form-control">
             </div>
             <div class="col-lg-6 col-xs-12 pad">
@@ -72,7 +72,19 @@
                 <input type="email" name="email" id="email" class="form-control">
             </div>
             <div class="col-lg-6 col-xs-12 pad">
+                <label>District :</label>
+                <select name="district_id" id="health_card_type" class="form-control" required="">
+                    <option value="">- Select District  -</option>
+                    @foreach($objDistrict as $districts)
+                        <option value="{{$districts->id}}">{{$districts->dist_code}}</option>
+                    @endforeach
+                </select>
             </div>
+            <div class="col-lg-6 col-xs-12 pad">
+                <label>Profile Photo :</label>
+                <input type="file" name="card_image" id="profile_image" class="form-control">
+            </div>
+            <div class="col-lg-6 col-xs-12 pad"></div>
             <div class="col-lg-6 col-xs-12 pad">
             <div class="text-left text-md-right pb-1" >
             <br>

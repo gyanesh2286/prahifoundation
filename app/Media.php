@@ -11,11 +11,15 @@ class Media extends Model
 {   
     protected $table   = 'media';
 
-
-    public function uploadImage($objUser,$file,$strType='profile',$isDefault=1){
+    public function mediable() {
+        return $this->morphTo();
+    }
+    public function uploadImage($objUser,$objReference,$file,$strType='profile',$isDefault=1){
         ini_set('memory_limit', '-1');
         $this->user_id              = $objUser->id;
         $this->picture_type         = $strType;
+        $this->mediable_id          = $objReference->id;
+        $this->mediable_type        = get_class($objReference);
         $this->filename             = Self::generate().$file->getFilename().'.'.$file->guessClientExtension();
         $this->image_size           = $file->getClientSize();
         $this->IsDefault            = $isDefault;

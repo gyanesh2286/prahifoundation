@@ -119,11 +119,11 @@ class UserController extends Controller
         $user->update(request()->all());
         $user->roles()->sync(request()->input('roles'));
         
-        if($user->media){
-            $user->media->uploadImage($user,request()->file('profile_image'));
+        if(!$user->media->isEmpty()){
+            $user->media->uploadImage($user,$user,request()->file('profile_image'));
         }else{
             $objMedia = new Media();
-            $objMedia->uploadImage($user,request()->file('profile_image'));
+            $objMedia->uploadImage($user,$user,request()->file('profile_image'));
         }
        
         activity('Updated User: ' . $user->name, request()->all(), $user);

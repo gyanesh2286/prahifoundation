@@ -1,6 +1,6 @@
 @extends('lap::layouts.auth')
 
-@section('title', 'Update User')
+@section('title', 'Update Health Card')
 @section('child-content')
     <h2>@yield('title')</h2>
 
@@ -26,20 +26,67 @@
                     </div>
                 </div>
             </div>
-
             <div class="list-group-item">
                 <div class="form-group row mb-0">
-                    <label class="col-md-2 col-form-label">Roles</label>
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
                     <div class="col-md-8">
-                        <div class="form-control-plaintext">
-                            @foreach ($roles as $role)
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" name="roles[]" id="role_{{ $role->id }}" class="custom-control-input" value="{{ $role->id }}"
-                                            {{ $user->roles->contains('id', $role->id) ? ' checked' : '' }}>
-                                    <label for="role_{{ $role->id }}" class="custom-control-label">{{ $role->name }}</label>
-                                </div>
-                            @endforeach
-                        </div>
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="email" class="col-md-2 col-form-label">Email</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
                     </div>
                 </div>
             </div>

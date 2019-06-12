@@ -1,6 +1,6 @@
 @extends('lap::layouts.auth')
 
-@section('title', 'User')
+@section('title', 'Health Card')
 @section('child-content')
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
@@ -28,10 +28,8 @@
         <h2 class="mb-0">@yield('title')</h2>
     </div>
     <div class="col-md-auto mt-2 mt-md-0">
-        <!--<input type="button" value="Print Card" id="btnPrint" />-->
-
-        <button type="button" onclick="printJS({printable: 'front_card', type: 'html',style: '.back_card div { color: black; }', header: 'PrintJS - Form Element Selection', showModal: true})">
-            Print Form with Header
+        <button type="button" onclick="document.getElementById('blank_div').style.display = 'block'; printJS({printable: 'front_card', type: 'html',maxWidth:1400,style: '.back_card { margin-bottom: 600; }', header: 'Health Card', showModal: true}); document.getElementById('blank_div').style.display = 'none';">
+            Print Card
         </button>
     </div>
 </div>
@@ -60,7 +58,11 @@
                                         <tr>
                                             <td>
                                                 <div style="border:2px solid #525451; height:200px;width:130px;text-align:center;margin: 0 7px;">
-                                                    <small>image</small>
+                                                    @if($members->media)
+                                                        <img src="{{asset('/')}}images/{{$members->media[0]->filename}}" width="160px" height="200px"/><br><br>
+                                                    @else
+                                                        <img src="{{asset('/')}}img/profile_blank.jpg" width="160px" height="200px"/><br><br>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -77,44 +79,45 @@
 
                                         <tr>
                                             <td>
-                                                <strong>नाव</strong><p style=" border-bottom: 2px dotted;display: inline-block;width: 83%;margin:  5px;">Johm Doe</p>
+                                                <strong>नाव</strong><p style=" border-bottom: 2px dotted;display: inline-block;width: 83%;margin:  5px;">{{ $members->name }}</p>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>
-                                                <strong>वडील / पतीचे नाव</strong><p style=" border-bottom: 2px dotted; display: inline-block;width: 66%;margin:  5px;">John John John</p>
+                                                <strong>वडील / पतीचे नाव</strong><p style=" border-bottom: 2px dotted; display: inline-block;width: 66%;margin:  5px;">{{ $members->father_husband }}</p>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>
-                                                <strong>पत्ता</strong><p style=" border-bottom: 2px dotted; display: inline-block;width: 83%;margin: 5px;">amanora park toen, behind amanora mall</p>
+                                                <strong>पत्ता</strong><p style=" border-bottom: 2px dotted; display: inline-block;width: 83%;margin: 5px;">{{ $members->current_address }}</p>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>
-                                                <strong>कार्ड दिनांक</strong><p style=" border-bottom: 2px dotted;display: inline-block;width: 73%;margin: 5px;">11/november/2008</p>
+                                                <strong>कार्ड दिनांक</strong><p style=" border-bottom: 2px dotted;display: inline-block;width: 73%;margin: 5px;">{{ $members->date_of_issue }}</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <strong>मोबाइल नंबर</strong><p style=" border-bottom: 2px dotted;display: inline-block;width:72%;margin: 5px;">9876541235</p>
+                                                <strong>मोबाइल नंबर</strong><p style=" border-bottom: 2px dotted;display: inline-block;width:72%;margin: 5px;">{{ $members->card_holder_mobile }}</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <strong>कुटुंब संख्या </strong><p style=" border-bottom: 2px dotted;    display: inline-block;width: 73%;margin: 5px;">05</p>
+                                                <strong>कुटुंब संख्या </strong><p style=" border-bottom: 2px dotted;    display: inline-block;width: 73%;margin: 5px;">{{ $members->family_members }}</p>
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
+                            
                             <tr>
-                                <td style="background:#3f539b;padding: 10px;text-align: center;font-size: 12px;">
-                                    <p style="color:#f7df1b;">Head Office: C wing 207, New B. J. Market, Jalgaon, Maharashtra <br>
-                                        MP Branch Office: Nimad Hospital ke Samne, Manappuram gold ke uppar, 2nd floor. MP
+                                <td style="background-color: #3f539b;padding: 10px;text-align: center;font-size: 12px;">
+                                    <p style="color:#f7df1b;">Head Office: {{$members->district->head_office_address}} <br>
+                                        Branch Office: {{$members->district->branch_office_address}}
                                     </p>
                                     <p style="color:#fff;font-size: 10px;margin-top: 5px;">Ph: 8623950212 | www.prahifoundation.com | Email - vinodpatil7088@gmail.com | director@prahifoundation.com</p>
                                 </td>
@@ -126,6 +129,9 @@
             </div> <!-- container ends here -->
         </div> <!-- container ends here -->
     </div> <!-- wrapper ends here -->
+    <div id="blank_div" style="height:400px;display: none">
+        
+    </div>
     <div class="list-group-item">
         <div class="row">
             <div class="col-md-2"></div>
@@ -207,54 +213,106 @@
     <div class="list-group-item">
         <div class="row">
             <div class="col-md-2">ID</div>
-            <div class="col-md-8">{{ $user->id }}</div>
+            <div class="col-md-8">{{ $members->id }}</div>
         </div>
     </div>
 
     <div class="list-group-item">
         <div class="row">
             <div class="col-md-2">Name</div>
-            <div class="col-md-8">{{ $user->name }}</div>
+            <div class="col-md-8">{{ $members->name }}</div>
         </div>
     </div>
 
     <div class="list-group-item">
         <div class="row">
             <div class="col-md-2">Email</div>
-            <div class="col-md-8">{{ $user->email }}</div>
+            <div class="col-md-8">{{ $members->email }}</div>
         </div>
     </div>
-
+    
     <div class="list-group-item">
         <div class="row">
-            <div class="col-md-2">Timezone</div>
-            <div class="col-md-8">
-                {{ $user->timezone }}<br>
-                <small class="text-secondary">Automatically set when the user logs in.</small>
-            </div>
+            <div class="col-md-2">Father/Husband Name</div>
+            <div class="col-md-8">{{ $members->father_husband }}</div>
         </div>
     </div>
-
     <div class="list-group-item">
         <div class="row">
-            <div class="col-md-2">Roles</div>
-            <div class="col-md-8">
-                {{ $user->roles->sortBy('name')->implode('name', ', ') }}
-            </div>
+            <div class="col-md-2">Age</div>
+            <div class="col-md-8">{{ $members->age }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Current Address</div>
+            <div class="col-md-8">{{ $members->current_address }}</div>
+        </div>
+    </div><div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">District Name</div>
+            <div class="col-md-8">{{ $members->district_name  }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">State</div>
+            <div class="col-md-8">{{ $members->state }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Date Of Issue </div>
+            <div class="col-md-8">{{ $members->date_of_issue }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Gender </div>
+            <div class="col-md-8">{{ $members->gender }}</div>
+        </div>
+    </div><div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Old Disease</div>
+            <div class="col-md-8">{{ $members->old_desease }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Aadhaar No</div>
+            <div class="col-md-8">{{ $members->uid_aadhaar_no }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Family Members </div>
+            <div class="col-md-8">{{ $members->family_members  }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Card Holder Mobile</div>
+            <div class="col-md-8">{{ $members->card_holder_mobile }}</div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">Health Card Type</div>
+            <div class="col-md-8">{{ $members->health_card_type }}</div>
         </div>
     </div>
 
     <div class="list-group-item">
         <div class="row">
             <div class="col-md-2">Created At</div>
-            <div class="col-md-8">{{ $user->created_at }}</div>
+            <div class="col-md-8">{{ $members->created_at }}</div>
         </div>
     </div>
 
     <div class="list-group-item">
         <div class="row">
             <div class="col-md-2">Updated At</div>
-            <div class="col-md-8">{{ $user->updated_at }}</div>
+            <div class="col-md-8">{{ $members->updated_at }}</div>
         </div>
     </div>
 </div>

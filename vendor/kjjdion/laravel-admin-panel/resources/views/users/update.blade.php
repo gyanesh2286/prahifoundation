@@ -18,14 +18,14 @@
                 </div>
             </div>
 
-            {{-- <div class="list-group-item">
+            <div class="list-group-item">
                 <div class="form-group row mb-0">
                     <label for="email" class="col-md-2 col-form-label">Email</label>
                     <div class="col-md-8">
                         <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <div class="list-group-item">
                 <div class="form-group row mb-0">
                     <label for="email" class="col-md-2 col-form-label">Father Name</label>

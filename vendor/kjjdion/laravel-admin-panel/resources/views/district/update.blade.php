@@ -1,43 +1,35 @@
 @extends('lap::layouts.auth')
 
-@section('title', 'Update Role')
+@section('title', 'Update District')
 @section('child-content')
     <h2>@yield('title')</h2>
 
-    <form method="POST" action="{{ route('admin.roles.update', $role->id) }}" novalidate data-ajax-form>
+    <form method="POST" action="{{ route('admin.district.update', $objDistrict->id) }}" novalidate data-ajax-form>
         @csrf
         @method('PATCH')
 
         <div class="list-group">
             <div class="list-group-item">
                 <div class="form-group row mb-0">
-                    <label for="name" class="col-md-2 col-form-label">Name</label>
+                    <label for="name" class="col-md-2 col-form-label">District Code</label>
                     <div class="col-md-8">
-                        <input type="text" name="name" id="name" class="form-control" value="{{ $role->name }}">
+                        <input type="text" name="dist_code" id="dist_code" class="form-control" value="{{ $objDistrict->dist_code }}">
                     </div>
                 </div>
             </div>
-
             <div class="list-group-item">
                 <div class="form-group row mb-0">
-                    <label class="col-md-2 col-form-label">Permissions</label>
+                    <label for="name" class="col-md-2 col-form-label">Head Office Address</label>
                     <div class="col-md-8">
-                        <div class="form-control-plaintext">
-                            @if($role->admin)
-                                This role always has all permissions.
-                            @else
-                                @foreach ($group_permissions as $group => $permissions)
-                                    <b class="d-block{{ !$loop->first ? ' mt-3' : '' }}">{{ $group }}</b>
-                                    @foreach ($permissions as $permission)
-                                        <div class="custom-control custom-control-inline custom-checkbox">
-                                            <input type="checkbox" name="permissions[]" id="permission_{{ $permission->id }}" class="custom-control-input" value="{{ $permission->id }}"
-                                                    {{ $role->permissions->contains('id', $permission->id) ? ' checked' : '' }}>
-                                            <label for="permission_{{ $permission->id }}" class="custom-control-label">{{ $permission->name }}</label>
-                                        </div>
-                                    @endforeach
-                                @endforeach
-                            @endif
-                        </div>
+                        <input type="text" name="head_office_address" id="head_office_address" class="form-control" value="{{ $objDistrict->head_office_address }}">
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item">
+                <div class="form-group row mb-0">
+                    <label for="name" class="col-md-2 col-form-label">Branch Office Address</label>
+                    <div class="col-md-8">
+                        <input type="text" name="branch_office_address" id="branch_office_address" class="form-control" value="{{ $objDistrict->branch_office_address }}">
                     </div>
                 </div>
             </div>

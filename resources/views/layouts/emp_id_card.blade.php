@@ -10,7 +10,7 @@
                 <tr class="text-left">
                     <td  style="padding:0px 0px 8px 5px; width: 30%;text-align: center;   " >
                         @if($user->media)
-                        <img src="{{asset('/')}}images/{{$user->media->filename}}" width="110px" height="90px"/><br><br>
+                        <img src="{{asset('/')}}images/{{$user->media[0]->filename}}" width="110px" height="90px"/><br><br>
                         @else
                         <img src="{{asset('/')}}img/profile_blank.jpg" width="110px" height="90px"/><br><br>
                         @endif
