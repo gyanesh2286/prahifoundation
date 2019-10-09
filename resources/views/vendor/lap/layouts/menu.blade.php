@@ -7,6 +7,11 @@
     </li>
 @endcan
 @can('Read Roles')
+    <li{!! request()->is('admin/hospital') ? ' class="active"' : '' !!}>
+        <a href="{{ route('admin.hospital') }}"><i class="fal fa-fw fa-shield-alt mr-3"></i>Manage Hospitals</a>
+    </li>
+@endcan
+@can('Read Roles')
     <li{!! request()->is('admin/district') ? ' class="active"' : '' !!}>
         <a href="{{ route('admin.district') }}"><i class="fal fa-fw fa-shield-alt mr-3"></i>Manage District</a>
     </li>

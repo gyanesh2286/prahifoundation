@@ -39,6 +39,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::patch('admin/district/update/{id}', config('lap.controllers.district') . '@update');
     Route::delete('admin/district/delete/{id}', config('lap.controllers.district') . '@delete')->name('admin.district.delete');
 
+    // hospitals
+    Route::get('admin/hospital', config('lap.controllers.hospital') . '@index')->name('admin.hospital');
+    Route::get('admin/hospital/create', config('lap.controllers.hospital') . '@createForm')->name('admin.hospital.create');
+    Route::post('admin/hospital/create', config('lap.controllers.hospital') . '@create');
+    Route::get('admin/hospital/read/{id}', config('lap.controllers.hospital') . '@read')->name('admin.hospital.read');
+    Route::get('admin/hospital/update/{id}', config('lap.controllers.hospital') . '@updateForm')->name('admin.hospital.update');
+    Route::patch('admin/hospital/update/{id}', config('lap.controllers.hospital') . '@update');
+    Route::delete('admin/hospital/delete/{id}', config('lap.controllers.hospital') . '@delete')->name('admin.hospital.delete');
+
     // user
     Route::get('admin/users', config('lap.controllers.user') . '@index')->name('admin.users');
     Route::get('admin/users/create', config('lap.controllers.user') . '@createForm')->name('admin.users.create');
