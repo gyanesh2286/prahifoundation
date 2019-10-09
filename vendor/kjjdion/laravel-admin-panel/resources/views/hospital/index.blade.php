@@ -1,6 +1,6 @@
 @extends('lap::layouts.auth')
 
-@section('title', 'District List')
+@section('title', 'Hospital List')
 @section('child-content')
     <div class="row mb-3">
         <div class="col-md">
@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-auto mt-2 mt-md-0">
             @can('Create Roles')
-                <a href="{{ route('admin.district.create') }}" class="btn btn-primary">Create District</a>
+                <a href="{{ route('admin.hospital.create') }}" class="btn btn-primary">Add Hospital</a>
             @endcan
         </div>
     </div>

@@ -8,7 +8,7 @@ use Kjjdion\LaravelAdminPanel\Traits\UserTimezone;
 
 class States extends Model
 {
-     protected $table   = 'States';
+     protected $table   = 'states';
     use DynamicFillable, UserTimezone;
 
 }

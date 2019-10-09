@@ -50,6 +50,7 @@ class MemberController extends Controller
             ['title' => 'Family Members', 'data' => 'family_members'],
             ['title' => 'Mobile No', 'data' => 'card_holder_mobile'],
             ['title' => 'Health Card Type No', 'data' => 'health_card_type'],
+            ['title' => '', 'data' => 'serial_number'],
             ['title' => 'Old Desease', 'data' => 'old_desease', 'searchable' => false, 'orderable' => false],
             ['title' => '', 'data' => 'actions', 'searchable' => false, 'orderable' => false],
         ]);
@@ -76,7 +77,8 @@ class MemberController extends Controller
         ]);
 
         $objMember = Member::with('media')->create($data);
-        
+        $objMember->serial_number   = str_pad($objMember->id, 4, '0', STR_PAD_LEFT);
+        $objMember->save();
         if(!$objMember->media->isEmpty()){
             $objMember->media->uploadImage(Auth::user(),$objMember,request()->file('card_image'));
         }else{

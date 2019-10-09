@@ -58,7 +58,7 @@
                                         <tr>
                                             <td>
                                                 <div style="border:2px solid #525451; height:200px;width:130px;text-align:center;margin: 0 7px;">
-                                                    @if($members->media)
+                                                    @if(!$members->media->isEmpty())
                                                         <img src="{{asset('/')}}images/{{$members->media[0]->filename}}" width="160px" height="200px"/><br><br>
                                                     @else
                                                         <img src="{{asset('/')}}img/profile_blank.jpg" width="160px" height="200px"/><br><br>
@@ -73,7 +73,7 @@
                                     <table style="color:#ef1b19;width:100%;">
                                         <tr>
                                             <td style="text-align:right;">
-                                                <strong>कोड नंबर</strong><p style=" border-bottom: 2px dotted;display: inline-block;width: 10%;margin: 5px;">001</p>
+                                                <strong>कोड नंबर</strong><p style=" border-bottom: 2px dotted;display: inline-block;width: 10%;margin: 5px;">{{ $members->serial_number }}</p>
                                             </td>
                                         </tr>
 

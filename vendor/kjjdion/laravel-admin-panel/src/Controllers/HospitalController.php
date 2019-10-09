@@ -27,7 +27,7 @@ class HospitalController extends Controller
             $datatable = datatables($roles)
                 
                 ->editColumn('actions', function ($role) {
-                    return view('lap::district.datatable.actions', compact('role'));
+                    return view('lap::hospital.datatable.actions', compact('role'));
                 })
                 ->rawColumns(['actions']);
 
@@ -40,14 +40,15 @@ class HospitalController extends Controller
         ]);
         $html->setTableAttribute('id', 'roles_datatable');
 
-        return view('lap::district.index', compact('html'));
+        return view('lap::hospital.index', compact('html'));
     }
 
     public function createForm()
     {
+        $objAllStates= app(config('lap.models.states'))->all();
         $objDistrict = app(config('lap.models.district'))->all()->groupBy('id');
 
-        return view('lap::district.create', compact('objDistrict'));
+        return view('lap::hospital.create', compact('objDistrict','objAllStates'));
     }
 
     public function create()
