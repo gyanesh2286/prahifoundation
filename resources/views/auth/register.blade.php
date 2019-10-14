@@ -12,11 +12,20 @@
 
 <div class="row">
     <div class="col-lg-6 col-xs-12 pad">
-        <label>Employee/ Associate Name :</label>
+        <label>Employee/ Associate First Name :</label>
         <input type="text" name="name" id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" required>
         @if ($errors->has('name'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('name') }}</strong>
+            </span>
+        @endif
+    </div>
+    <div class="col-lg-6 col-xs-12 pad">
+        <label>Employee/ Associate Last Name :</label>
+        <input type="text" name="last_name" id="name" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" required>
+        @if ($errors->has('last_name'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('last_name') }}</strong>
             </span>
         @endif
     </div>
@@ -57,11 +66,20 @@
         @endif  
     </div>
     <div class="col-lg-6 col-xs-12 pad">
-        <label>Full Address :</label>
-        <input type="text" name="full_address" id="full_address" class="form-control{{ $errors->has('full_address') ? ' is-invalid' : '' }}" required>
-        @if ($errors->has('full_address'))
+        <label>Country :</label>
+        <input type="text" name="country" id="state" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" required>
+        @if ($errors->has('country'))
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('full_address') }}</strong>
+                <strong>{{ $errors->first('country') }}</strong>
+            </span>
+        @endif
+    </div>
+     <div class="col-lg-6 col-xs-12 pad">
+        <label>State :</label>
+        <input type="text" name="state" id="state" class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" required>
+        @if ($errors->has('state'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('state') }}</strong>
             </span>
         @endif
     </div>
@@ -75,14 +93,16 @@
         @endif
     </div>
     <div class="col-lg-6 col-xs-12 pad">
-        <label>State :</label>
-        <input type="text" name="state" id="state" class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" required>
-        @if ($errors->has('state'))
+        <label>Full Address :</label>
+        <input type="text" name="full_address" id="full_address" class="form-control{{ $errors->has('full_address') ? ' is-invalid' : '' }}" required>
+        @if ($errors->has('full_address'))
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('state') }}</strong>
+                <strong>{{ $errors->first('full_address') }}</strong>
             </span>
         @endif
     </div>
+    
+   
    
     <div class="col-lg-6 col-xs-12 pad">
         <label>Aadhaar No. :</label>

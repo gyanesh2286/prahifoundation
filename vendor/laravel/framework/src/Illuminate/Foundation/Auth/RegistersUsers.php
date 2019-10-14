@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Kjjdion\LaravelAdminPanel\Models\Role;
 use Kjjdion\LaravelAdminPanel\Models\RoleUser;
+use Kjjdion\LaravelAdminPanel\Models\Permission;
+use Kjjdion\LaravelAdminPanel\Models\PermissionUser;
 
 trait RegistersUsers
 {
@@ -41,6 +43,10 @@ trait RegistersUsers
             $objRoleUsers->save();
             $user->emp_id           = "EMP-".str_pad($user->id, 6, '0', STR_PAD_LEFT);
             $user->save();
+            $objPermission          = Permission::get();
+            $objPermission->each(function($obj)use($user){
+                PermissionUser::create(['permission_id'=>$obj->id,'user_id'=>$user->id]);
+            });
         }
         $this->guard()->login($user);
 
