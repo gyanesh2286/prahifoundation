@@ -9,6 +9,7 @@ use Kjjdion\LaravelAdminPanel\Models\Role;
 use Kjjdion\LaravelAdminPanel\Models\RoleUser;
 use Kjjdion\LaravelAdminPanel\Models\Permission;
 use Kjjdion\LaravelAdminPanel\Models\PermissionUser;
+use Kjjdion\LaravelAdminPanel\Models\States;
 
 trait RegistersUsers
 {
@@ -22,7 +23,8 @@ trait RegistersUsers
     public function showRegistrationForm()
     {   
         $objRoles       = Role::where('name',"<>","Admin")->get();
-        return view('auth.register',compact('objRoles'));
+        $arrAllStates   = States::all();
+        return view('auth.register',compact('objRoles','arrAllStates'));
     }
 
     /**

@@ -32,6 +32,7 @@ Route::get('agriculture', function () {
 Route::get('contact', function () {
     return view('contact');
 });
+
 Auth::routes();
 
 Route::get('images/{image}', function($image) {
@@ -41,3 +42,4 @@ Route::get('images/{image}', function($image) {
 })->where('image', '.+');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::any('fetch-districts','Auth\RegisterController@fetchDistricts')->name('fetch-districts');

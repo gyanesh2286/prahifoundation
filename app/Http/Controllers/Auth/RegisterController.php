@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Kjjdion\LaravelAdminPanel\Models\Districts;
 
 class RegisterController extends Controller
 {
@@ -59,6 +61,8 @@ class RegisterController extends Controller
             'state' => ['required', 'string', 'max:255'],
              'district' => ['required', 'string', 'max:255'],
             'full_address' => ['required', 'string', 'max:500'],
+            'aadhaar_no' => ['required', 'numeric', 'min:11'],
+            'mobile_no' => ['required', 'numeric', 'min:11'],
         ]);
     }
 
@@ -86,5 +90,15 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    
+    public function fetchDistricts(Request $request){
+        if($request->has('stateId')){
+            $objDistricts= Districts::where('state_id',$request->input('stateId'))->get();
+            return response()->json(['status'=>true,'response'=>$objDistricts], 200);
+        }else{
+            return response()->json(['status'=>false,'response'=>[]], 200);
+        }
+        
     }
 }

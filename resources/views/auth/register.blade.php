@@ -67,7 +67,9 @@
     </div>
     <div class="col-lg-6 col-xs-12 pad">
         <label>Country :</label>
-        <input type="text" name="country" id="state" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" required>
+        <select name="country" id="state" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" required>
+            <option value="India"> India </option>
+        </select>
         @if ($errors->has('country'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('country') }}</strong>
@@ -76,7 +78,12 @@
     </div>
      <div class="col-lg-6 col-xs-12 pad">
         <label>State :</label>
-        <input type="text" name="state" id="state" class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" required>
+            <select name="state" id="state" class="form-control{{ $errors->has('state') ? ' is-invalid' : '' }}" onchange="ChangeState(this)" required>
+           <option value="">--Select State--</option>
+         @foreach($arrAllStates as $stateValue)
+            <option value="{{$stateValue->id}}">{{$stateValue->name}}</option>
+            @endforeach
+        </select>
         @if ($errors->has('state'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('state') }}</strong>
@@ -85,7 +92,9 @@
     </div>
     <div class="col-lg-6 col-xs-12 pad">
         <label>District :</label>
-        <input type="text" name="district" id="district" class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}" required>
+        <select name="district" id="district" class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}" required>
+            <option value="">--Select District--</option>
+        </select>
         @if ($errors->has('district'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('district') }}</strong>
@@ -160,10 +169,35 @@
         </button>
         
     </div>
+    </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+function ChangeState(e) {
+  var state = document.getElementById("state").value;
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    }); 
+  $.ajax({ url: "{{route('fetch-districts')}}", data:{stateId:e.value}, success: function(resp){
+    var html='';
+    if(resp.response.length>0){
+        $.each( resp.response, function( key, value ) {
+            html+="<option value="+value.id+">"+value.name+"</option>"
+          });
+    }else{
+        html+="<option value=''> --Select district--</option>"
+    }
+    document.getElementById("district").innerHTML = html;
+  }});
+  
+}
+</script>
+
 @endsection
